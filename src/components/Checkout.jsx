@@ -98,9 +98,8 @@ export default class Checkout extends Component {
                 <div>
                 <Link to="/Entrar">
             <button 
-                    onClick={ this.validateFormOnClick }
-                    className="btn-container">
-                    Finalizar compra
+               className="btn-container">
+              Finalizar compra
             </button>
                </Link>
                 </div>
