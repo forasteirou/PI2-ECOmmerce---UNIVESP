@@ -1,18 +1,11 @@
 /* eslint-disable max-lines */
 /* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default class Checkout extends Component {
   state = {
     cartItems: [],
-    fullName: '',
-    cpf: '',
-    email: '',
-    adress: '',
-    cep: '',
-    phone: '',
-    paymentType: '',
   }
 
   componentDidMount() {
@@ -99,18 +92,17 @@ export default class Checkout extends Component {
                 </span>
               </div>
             </div>
+          
             <div>
-                
-                <div className="btn-container">
-                  <button
-                    type="button"
-                    data-testid="checkout-btn"
+            
+                <div>
+                <Link to="/Entrar">
+            <button 
                     onClick={ this.validateFormOnClick }
-                    className="chk-btn"
-                  >
+                    className="btn-container">
                     Finalizar compra
-                  </button>
-
+            </button>
+               </Link>
                 </div>
               </div>
           </div>
