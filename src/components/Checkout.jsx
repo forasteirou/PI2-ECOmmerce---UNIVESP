@@ -2,7 +2,6 @@
 /* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 export default class Checkout extends Component {
   state = {
@@ -41,24 +40,7 @@ export default class Checkout extends Component {
 
   
 
-    validateFormOnClick = () => {
-      const { fullName, cpf, email, cep, adress, phone, paymentType } = this.state;
-      const validateFields = fullName.length === 0
-        || cpf.length === 0
-        || email.length === 0
-        || cep.length === 0
-        || adress.length === 0
-        || phone.length === 0
-        || paymentType.length === 0;
-      this.setState({ validateFields }, () => {
-        const { clearCart, history } = this.props;
-        const { push } = history;
-        if (!validateFields) {
-          clearCart();
-          push('/');
-        }
-      });
-    }
+    
 
     render() {
       const itemsToShow = this.checkDuplicated();
@@ -131,11 +113,6 @@ export default class Checkout extends Component {
 
                 </div>
               </div>
-            {/* <Link
-            to="/carrinho"
-          >
-            <p>Voltar para o carrinho</p>
-          </Link> */}
           </div>
         </div>
       );
