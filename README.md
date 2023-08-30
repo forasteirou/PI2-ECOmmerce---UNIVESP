@@ -32,7 +32,10 @@ Foi desenvolvida uma versão simplificada de um ECOmmerce como parte de um proje
 
 - Navegue até a pasta do repositório no seu computador. 
 
-- Instale como dependências usando npm install. 
+- Instale como dependências usando npm install.  
+
+- Tente forçar a instalação das dependências usando a flag npm install --legacy-peer-deps
+
 
 - Inicialize o projeto com npm start. 
 
