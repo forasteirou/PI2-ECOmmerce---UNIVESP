@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { FaCcVisa, FaBarcode, FaCcMastercard, FaCreditCard } from 'react-icons/fa';
 
 export default class Checkout extends Component {
   state = {
@@ -40,15 +39,27 @@ export default class Checkout extends Component {
     return itemsToShow;
   }
 
-  handleChange = ({ target }) => {
-    const { name } = target;
-    const value = target.type === 'radio' ? target.id : target.value;
-    this.setState({
-      [name]: value,
-    });
-  }
-
   
+
+    validateFormOnClick = () => {
+      const { fullName, cpf, email, cep, adress, phone, paymentType } = this.state;
+      const validateFields = fullName.length === 0
+        || cpf.length === 0
+        || email.length === 0
+        || cep.length === 0
+        || adress.length === 0
+        || phone.length === 0
+        || paymentType.length === 0;
+      this.setState({ validateFields }, () => {
+        const { clearCart, history } = this.props;
+        const { push } = history;
+        if (!validateFields) {
+          clearCart();
+          push('/');
+        }
+      });
+    }
+
     render() {
       const itemsToShow = this.checkDuplicated();
       const { validateFields } = this.state;
@@ -58,10 +69,7 @@ export default class Checkout extends Component {
       return (
         <div className="checkout-page">
           <div className="checkout-container">
-            
-          
-               
-            
+           
             <div
               className="purchase-summary"
             >
@@ -109,17 +117,19 @@ export default class Checkout extends Component {
                 </span>
               </div>
             </div>
-            <div className="btn-container">
+            <div>
+                
+                <div className="btn-container">
                   <button
                     type="button"
                     data-testid="checkout-btn"
-                    
+                    onClick={ this.validateFormOnClick }
                     className="chk-btn"
                   >
                     Finalizar compra
                   </button>
 
-            
+                </div>
               </div>
             {/* <Link
             to="/carrinho"
@@ -132,9 +142,4 @@ export default class Checkout extends Component {
     }
 }
 
-Checkout.propTypes = {
-  getCartItemQuantity: PropTypes.func.isRequired,
-  clearCart: PropTypes.func.isRequired,
-  totalPrice: PropTypes.func.isRequired,
-  history: PropTypes.instanceOf(Object).isRequired,
-};
+
