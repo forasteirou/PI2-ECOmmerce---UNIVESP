@@ -24,6 +24,10 @@ Foi desenvolvida uma versão simplificada de um ECOmmerce como parte de um proje
 
 - CSS
 
+- Python
+
+- Django
+
 ---
 
 ## Passos para Inicialização:
@@ -36,8 +40,12 @@ Foi desenvolvida uma versão simplificada de um ECOmmerce como parte de um proje
 
 - Tente forçar a instalação das dependências usando a flag npm install --legacy-peer-deps
 
-
 - Inicialize o projeto com npm start. 
+
+
+- Para ativar o backend, acesse a pasta 'src/backend'; crie um ambiente virtual python com o comando 'python3 -m venv ./venv'; em seguida ative o ambiente executando o script activate, que se encontra em './venv/bin/activate' (talvez no Windows o caminho seja './venv/Scripts/activate'); com o ambiente virtual ativo, execute o comando 'pip install -r requirements.txt' para instalar as dependências do backend no ambiente virtual;
+
+- Após concluir o primeiro passo, acesse a pasta 'src/backend/backend', onde se encontrará o arquivo manage.py; nessa pasta, execute o comando 'python3 manage.py runserver' para iniciar o servidor django.
 
  
 

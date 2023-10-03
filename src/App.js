@@ -1,6 +1,8 @@
 // Main Imports
 import React from 'react';
 
+import { useState } from 'react';
+
 // Logic Imports
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import * as api from './services/api';
@@ -13,6 +15,7 @@ import Header from './components/Header';
 import Product from './components/Product';
 import Checkout from './components/Checkout';
 import Footer from './components/Footer';
+import LoginForm from './components/LoginForm';
 
 // CSS Import
 import './css/App.css';
@@ -23,6 +26,7 @@ import './css/Product.css';
 import './css/Carrinho.css';
 import './css/Checkout.css';
 import './css/Footer.css';
+import './css/LoginForm.css'
 // Icons Imports
 
 class App extends React.Component {
@@ -37,6 +41,8 @@ class App extends React.Component {
     cartList: JSON.parse(localStorage.getItem('cart')) || [],
     redirect: false,
     statusStock: false,
+    username: null,
+    token: null,
   }
 
   handleChange = ({ target }) => {
@@ -188,6 +194,14 @@ class App extends React.Component {
     return pricesArray.reduce((acc, curr) => acc + curr, 0);
   }
 
+  loginState = (username, token) => {
+    this.setState({username: username, token: token})
+  }
+
+  logoutState = () => {
+    this.setState({username: '', token: ''})
+  }
+
   render() {
     const { searchInput, searchResult, clickSearch, cartList, redirect } = this.state;
 
@@ -199,6 +213,7 @@ class App extends React.Component {
             searchRequest={ this.searchRequest }
             searchRequestEnter={ this.searchRequestEnter }
             cartList={ cartList }
+            logoutState = {this.logoutState}
           />
 
           { redirect && <Redirect to="/" /> }
@@ -248,6 +263,13 @@ class App extends React.Component {
                 />
               ) }
             />
+            <Route path="/Entrar"
+              render= {() => (
+                <LoginForm loginState={this.loginState}></LoginForm>
+              )}
+            >
+            </Route>
+
           </Switch>
 
           <Footer />

@@ -7,9 +7,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { FaStore, FaSearch } from 'react-icons/fa';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
+import LogoutButton from './Logout';
+
 class Header extends Component {
   render() {
-    const { handleChange, searchRequest, cartList, searchRequestEnter } = this.props;
+    const { handleChange, searchRequest, cartList, searchRequestEnter, logoutState } = this.props;
 
     return (
       <div className="header">
@@ -46,6 +48,8 @@ class Header extends Component {
             </button>
           </Link>  
         </div>
+
+        { localStorage.getItem('token') ? <div>Olá, {localStorage.getItem('username')}</div> : <></>}
         
         <div className="cart-button">
         <Link to="/Cadastro">
@@ -53,11 +57,18 @@ class Header extends Component {
             className="header-item btn btn-cadastro">Cadastro
             </button>
         </Link>
+
+        { (!localStorage.getItem('token')) ? 
+
         <Link to="/Entrar">
             <button 
             className="header-item btn btn-entrar">Entrar
             </button>
         </Link>
+
+        :
+
+        <LogoutButton logoutState={logoutState}></LogoutButton> }
           <Link data-testid="shopping-cart-button" to="/carrinho">
             <div
               data-testid="shopping-cart-size"
