@@ -16,6 +16,7 @@ import Product from './components/Product';
 import Checkout from './components/Checkout';
 import Footer from './components/Footer';
 import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
 
 // CSS Import
 import './css/App.css';
@@ -263,6 +264,9 @@ class App extends React.Component {
                 />
               ) }
             />
+            <Route path='/Cadastro' render={() => (
+              <SignupForm></SignupForm>
+            )} ></Route>
             <Route path="/Entrar"
               render= {() => (
                 <LoginForm loginState={this.loginState}></LoginForm>
