@@ -6,25 +6,53 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from ecommerce.models import EcommerceUser
 
 # Create your views here.
+
+def existe_um_usuario_com_o_email(email):    
+    try:
+        resultado = EcommerceUser.objects.get(email=email)
+        if resultado:
+            return True
+    except Exception:
+        return False
 
 @csrf_exempt
 def signup(request):
     if request.method == 'POST':
         try:
+                    
             data = JSONParser().parse(request) # data is a dictionary
-            user = User.objects.create_user(
-            username=data['username'],
-            password=data['password'])
-            user.save()
-            token = Token.objects.create(user=user)
+            #obtendo os dados da requisição e armazenando em variáveis
+            username = data['username']
+            password = data['password']
+            nome_e_sobrenome = data['nomeSobrenome']
+            email = data['email']
+            
+            if existe_um_usuario_com_o_email(email):
+                return JsonResponse({'error': 'email error'}, status=400)
+            
+            auth_user = User.objects.create_user(
+            username=username,
+            password=password)
+            auth_user.save()
+            
+            token = Token.objects.create(user=auth_user)
+
+            ecommerce_user = EcommerceUser(
+                nome_e_sobrenome=nome_e_sobrenome,
+                email=email,
+                login_name=username,
+                token=str(token),
+                )
+            ecommerce_user.save()
+            
             return JsonResponse({'token':str(token)},status=201)
         except IntegrityError:
             return JsonResponse(
-            {'error':'username taken. choose another username'},
+            {'error':'username error'},
             status=400)
-
 
 @csrf_exempt
 def login(request):
